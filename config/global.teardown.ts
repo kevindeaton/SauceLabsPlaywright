@@ -1,4 +1,4 @@
-import { test } from '../pages/fixtures/fixtures.ts';
+import { test } from '../pages/fixtures/fixtures.page.ts';
 import * as fs from 'fs';
 import * as path from 'path';
 

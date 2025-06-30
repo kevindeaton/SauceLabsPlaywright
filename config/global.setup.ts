@@ -1,4 +1,4 @@
-import { test, expect } from '../pages/fixtures/fixtures.ts';
+import { test, expect } from '../pages/fixtures/fixtures.page.ts';
 import { STORAGE_STATE } from '../playwright.config.ts';
 
 test('Loginand store Session', async ({ loginPage }) => {
