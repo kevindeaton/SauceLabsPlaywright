@@ -4,8 +4,25 @@
     "playwright": "^1.52.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.30.0",
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.14.1",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9.30.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-playwright": "^2.2.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "husky": "^8.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3"
   },
-  "scripts": {}
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "prepare": "husky install"
+  },
+  "type": "module"
 }
