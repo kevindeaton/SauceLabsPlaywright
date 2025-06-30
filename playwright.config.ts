@@ -36,9 +36,8 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-
     {
-      name: "Setup",
+      name: 'Setup',
       testDir: './config',
       testMatch: '**/global.setup.ts',
       teardown: 'Teardown',
@@ -51,11 +50,11 @@ export default defineConfig({
 
     {
       name: 'Regression Tests',
-      dependencies: ["Setup"],
+      dependencies: ['Setup'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: STORAGE_STATE,
       },
-    }
-  ]
+    },
+  ],
 });
