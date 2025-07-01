@@ -1,62 +1,47 @@
 import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
+import { inventoryDetails } from '../../test-data/inventory-details.ts';
 
-test('Inventory Items should contain all the correct information', async ({ inventoryPage }) => {
-  inventoryPage.navigateTo();
 
-  for (const item of inventoryItems) {
-    // Assert the 'Add To Cart' button is visible
-    const button = inventoryPage.getButtonByLabelText(item.name);
-    await expect(button).toBeVisible();
+test.describe('Verify Inventory Details', () => {
 
-    // Assert the image is visible
-    const image = inventoryPage.getImageByLabelText(item.name);
-    await expect(image).toBeVisible();
+  test.beforeEach(async ({ inventoryPage }) => {
+    inventoryPage.navigateTo();
+  });
 
-    // Assert the description is correct
-    const description = inventoryPage.getDescriptionByLabelText(item.name);
-    await expect(description).toHaveText(item.description);
+  test('Inventory Items on the Inventory Page should contain all the correct information', async ({ inventoryPage }) => {
+    
+    const inventoryItems = inventoryDetails; // Use the imported inventory details
 
-    // Assert the price is correct
-    const price = inventoryPage.getPriceByLabelText(item.name);
-    await expect(price).toHaveText(item.price);
-  }
-});
+    for (const item of inventoryItems) {
+      // Assert the 'Add To Cart' button is visible
+      const button = inventoryPage.getButtonByLabelText(item.name);
+      await expect(button).toBeVisible();
 
-const inventoryItems = [
-  {
-    name: 'Sauce Labs Backpack',
-    price: '$29.99',
-    description:
-      'carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.',
-  },
-  {
-    name: 'Sauce Labs Bike Light',
-    price: '$9.99',
-    description:
-      "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
-  },
-  {
-    name: 'Sauce Labs Bolt T-Shirt',
-    price: '$15.99',
-    description:
-      'Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.',
-  },
-  {
-    name: 'Sauce Labs Fleece Jacket',
-    price: '$49.99',
-    description:
-      "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
-  },
-  {
-    name: 'Sauce Labs Onsie',
-    price: '$7.99',
-    description:
-      "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.",
-  },
-  {
-    name: 'Test.allTheThings() T-Shirt (Red)',
-    price: '$15.99',
-    description:
-      'This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.',
-  },
-];
+      // Assert the image is visible
+      const image = inventoryPage.getImageByLabelText(item.name);
+      await expect(image).toBeVisible();
+
+      // Assert the description is correct
+      const description = inventoryPage.getDescriptionByLabelText(item.name);
+      await expect(description).toHaveText(item.description);
+
+      // Assert the price is correct
+      const price = inventoryPage.getPriceByLabelText(item.name);
+      await expect(price).toHaveText(item.price);
+    }
+  });
+
+  test('Inventory Items can be sorted by name', async ({ inventoryPage }) => {
+    const inventoryItems = inventoryDetails;
+
+    // Sort the items by name
+    const sortedItems = [...inventoryItems].sort((a, b) => a.name.localeCompare(b.name));
+
+    // Get the names of the items displayed on the page
+    const displayedItems = await inventoryPage.getInventoryItemNames();
+
+    // Assert that the displayed items match the sorted items
+    expect(displayedItems).toEqual(sortedItems.map(item => item.name));
+  });
+
+})
