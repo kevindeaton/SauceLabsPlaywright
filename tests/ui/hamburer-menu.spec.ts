@@ -1,4 +1,4 @@
-import { test, expect } from '../pages/fixtures/fixtures.page.ts';
+import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
 
 test('Hamburger Menu should expand and show all options when clicked', async ({ hamburgerMenu, inventoryPage }) => {
   await inventoryPage.navigateTo();

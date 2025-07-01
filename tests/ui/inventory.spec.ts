@@ -1,4 +1,4 @@
-import { test, expect } from '../pages/fixtures/fixtures.page.ts';
+import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
 
 test('Inventory Items should contain all the correct information', async ({ inventoryPage }) => {
   inventoryPage.navigateTo();
@@ -40,5 +40,23 @@ const inventoryItems = [
     price: '$15.99',
     description:
       'Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.',
+  },
+  {
+    name: 'Sauce Labs Fleece Jacket',
+    price: '$49.99',
+    description:
+      "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
+  },
+  {
+    name: 'Sauce Labs Onsie',
+    price: '$7.99',
+    description:
+      "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.",
+  },
+  {
+    name: 'Test.allTheThings() T-Shirt (Red)',
+    price: '$15.99',
+    description:
+      'This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.',
   },
 ];
