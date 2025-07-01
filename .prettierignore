@@ -3,6 +3,9 @@ node_modules/
 test-results/
 playwright-report
 summary.json
+config/
+package.json
+package-lock.json
 
 # IDE - VSCode
 .vscode/*

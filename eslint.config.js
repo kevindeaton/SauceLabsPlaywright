@@ -10,7 +10,8 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default [
   {
-    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/'],
+    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/', 'config/', 
+      'package.json', 'package-lock.json'],
   },
   eslintPluginPrettierRecommended,
   js.configs.recommended,
