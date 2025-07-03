@@ -1,7 +1,7 @@
 import { test, expect } from '../pages/fixtures/fixtures.page.ts';
 import { STORAGE_STATE } from '../playwright.config.ts';
 
-test('Loginand store Session', async ({ loginPage }) => {
+test('Login and store Session', async ({ loginPage }) => {
   const USERNAME =
     process.env.VALID_USER ??
     (() => {

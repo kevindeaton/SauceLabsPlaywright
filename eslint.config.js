@@ -6,11 +6,9 @@ import tsParser from '@typescript-eslint/parser'; // The TypeScript parser
 import tsPlugin from '@typescript-eslint/eslint-plugin'; // The TypeScript ESLint plugin
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
-// const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');// Prettier recommended rules
-
 export default [
   {
-    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/'],
+    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/', 'config/'],
   },
   eslintPluginPrettierRecommended,
   js.configs.recommended,
