@@ -2,10 +2,12 @@ import { test as base, Page } from '@playwright/test';
 import { HamburgerMenu } from '../hamburger-menu.page';
 import { InventoryPage } from '../inventory.page';
 import { LoginPage } from '../login.page';
+import { ItemDetailsPage } from '../itemDetails.page';
 
 type Fixtures = {
   page: Page;
   hamburgerMenu: HamburgerMenu;
+  itemDetailsPage: ItemDetailsPage;
   inventoryPage: InventoryPage;
   loginPage: LoginPage;
 };
@@ -18,6 +20,11 @@ export const test = base.extend<Fixtures>({
   hamburgerMenu: async ({ page }, use) => {
     const hamburgerMenu = new HamburgerMenu(page);
     await use(hamburgerMenu);
+  },
+
+  itemDetailsPage: async ({ page }, use) => {
+    const itemDetailsPage = new ItemDetailsPage(page);
+    await use(itemDetailsPage);
   },
 
   inventoryPage: async ({ page }, use) => {

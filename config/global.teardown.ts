@@ -1,6 +1,11 @@
 import { test } from '../pages/fixtures/fixtures.page.ts';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+// Resolve __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 test('Logout and clear Session', async () => {
   // Writes an empty object to the auth.json file to clear session data
