@@ -1,5 +1,5 @@
 import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
-import { InventoryDetails, inventoryDetails } from '../../test-data/inventory-details.ts';
+import { InventoryItems, inventoryDetails } from '../../test-data/inventory-details.ts';
 import {
   sortByNameAlphabetically,
   sortByNameReverseAlphabetically,
@@ -13,7 +13,7 @@ test.describe('Verify Inventory Details', () => {
   });
 
   test('Inventory Items on the Inventory Page should contain all the correct information', async ({ inventoryPage }) => {
-    const inventoryItems: Array<InventoryDetails> = inventoryDetails; // Use the imported inventory details
+    const inventoryItems: Array<InventoryItems> = inventoryDetails; // Use the imported inventory details
 
     for (const item of inventoryItems) {
       // Assert the 'Add To Cart' button is visible

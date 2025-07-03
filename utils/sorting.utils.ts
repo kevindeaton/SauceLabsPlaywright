@@ -1,4 +1,4 @@
-import { InventoryDetails } from '../test-data/inventory-details';
+import { InventoryItems } from '../test-data/inventory-details';
 
 /**
  *
@@ -6,7 +6,7 @@ import { InventoryDetails } from '../test-data/inventory-details';
  * @param items Array of items with name properties
  * @returns A new array of items sorted by name alphabetically.
  */
-export function sortByNameAlphabetically(items: Array<InventoryDetails>): Array<InventoryDetails> {
+export function sortByNameAlphabetically(items: Array<InventoryItems>): Array<InventoryItems> {
   return [...items].sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -15,7 +15,7 @@ export function sortByNameAlphabetically(items: Array<InventoryDetails>): Array<
  * @param items Array of items with name properties
  * @returns A new array of items sorted by name in reverse alphabetical order.
  */
-export function sortByNameReverseAlphabetically(items: Array<InventoryDetails>): Array<InventoryDetails> {
+export function sortByNameReverseAlphabetically(items: Array<InventoryItems>): Array<InventoryItems> {
   return [...items].sort((a, b) => b.name.localeCompare(a.name));
 }
 
@@ -25,7 +25,7 @@ export function sortByNameReverseAlphabetically(items: Array<InventoryDetails>):
  * @param items Array of items with price and name properties
  * @returns A new array of items sorted by price low to high
  */
-export function sortByPriceLowToHigh(items: Array<InventoryDetails>): Array<InventoryDetails> {
+export function sortByPriceLowToHigh(items: Array<InventoryItems>): Array<InventoryItems> {
   return [...items].sort((a, b) => {
     const priceComparison = parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
     if (priceComparison !== 0) {
@@ -41,7 +41,7 @@ export function sortByPriceLowToHigh(items: Array<InventoryDetails>): Array<Inve
  * @param items Array of items with price and name properties
  * @returns A new array of items sorted by price high to low
  */
-export function sortByPriceHighToLow(items: Array<InventoryDetails>): Array<InventoryDetails> {
+export function sortByPriceHighToLow(items: Array<InventoryItems>): Array<InventoryItems> {
   return [...items].sort((a, b) => {
     const priceComparison = parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', ''));
     if (priceComparison !== 0) {
