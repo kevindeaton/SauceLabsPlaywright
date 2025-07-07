@@ -1,7 +1,11 @@
 import { test, expect } from '../pages/fixtures/fixtures.page.ts';
 import { STORAGE_STATE } from '../playwright.config.ts';
+import * as allure from "allure-js-commons";
+import { setAllureAnnotations } from '../utils/allure.utils.ts';
 
 test('Login and store Session', async ({ loginPage }) => {
+  await setAllureAnnotations("Authentication", "Pre-Step", allure.Severity.BLOCKER);
+
   const USERNAME =
     process.env.VALID_USER ??
     (() => {

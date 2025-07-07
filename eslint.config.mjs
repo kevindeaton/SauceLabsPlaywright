@@ -7,7 +7,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default [
   {
-    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/', 'config/'],
+    ignores: ['node_modules/', 'test-results/', 'playwright-report/', 'summary.json', '.vscode/', 'config/', 'allure-*/', '*.config.*'],
   },
   eslintPluginPrettierRecommended,
   js.configs.recommended,

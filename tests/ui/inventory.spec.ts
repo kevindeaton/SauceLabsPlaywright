@@ -1,11 +1,13 @@
 import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
 import { InventoryItems, inventoryDetails } from '../../test-data/inventory-details.ts';
+import * as allure from 'allure-js-commons';
 import {
   sortByNameAlphabetically,
   sortByNameReverseAlphabetically,
   sortByPriceHighToLow,
   sortByPriceLowToHigh,
 } from '../../utils/sorting.utils.ts';
+import { setAllureAnnotations } from '../../utils/allure.utils.ts';
 
 test.describe('Verify Inventory Details', () => {
   test.beforeEach(async ({ inventoryPage }) => {
@@ -13,6 +15,8 @@ test.describe('Verify Inventory Details', () => {
   });
 
   test('Inventory Items on the Inventory Page should contain all the correct information', async ({ inventoryPage }) => {
+    await setAllureAnnotations('Inventory', 'Regression', allure.Severity.CRITICAL);
+
     const inventoryItems: Array<InventoryItems> = inventoryDetails; // Use the imported inventory details
 
     for (const item of inventoryItems) {
@@ -38,6 +42,8 @@ test.describe('Verify Inventory Details', () => {
     inventoryPage,
     itemDetailsPage,
   }) => {
+    await setAllureAnnotations('Inventory', 'Regression', allure.Severity.CRITICAL);
+
     const inventoryItems = inventoryDetails;
 
     // Select a random item from the inventoryDetails object
@@ -64,6 +70,8 @@ test.describe('Verify Sorting functionality', () => {
   });
 
   test('Inventory Items can be sorted by Name', async ({ inventoryPage }) => {
+    await setAllureAnnotations('Inventory', 'Regression', allure.Severity.MINOR);
+
     const inventoryItems = inventoryDetails;
 
     await test.step('Iventory items should be sorted alphabetically', async () => {
@@ -82,6 +90,8 @@ test.describe('Verify Sorting functionality', () => {
   });
 
   test('Inventory Items can be sorted by Price', async ({ inventoryPage }) => {
+    await setAllureAnnotations('Inventory', 'Regression', allure.Severity.MINOR);
+
     const inventoryItems = inventoryDetails;
 
     await test.step('Iventory items should be sorted by Priec Low to High', async () => {

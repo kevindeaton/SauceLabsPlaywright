@@ -7,3 +7,4 @@ node_modules/
 /config/auth.json
 /config/.env
 /playwright/.cache/
+/allure-*/
