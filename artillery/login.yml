@@ -1,0 +1,53 @@
+config:
+  target: '/'
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      maxVusers: 1
+      name: Basic Performance Test
+    # - duration: 60
+    #   arrivalRate: 1
+    #   rampTo: 100
+    #   name: Ramp up to 100 users
+    # - duration: 60
+    #   arrivalRate: 100
+    #   name: Sustained Load at 100 users
+    # - duration: 60
+    #   arrivalRate: 100
+    #   rampTo: 0
+    #   name: Ramp down to 0 users
+    # - pause: 60
+    #   name: Pause for 60 seconds
+    # - duration: 10
+    #   arrivalRate: 1
+    #   rampTo: 130
+    #   name: Spike to 130 users very quickly
+    # - duration: 10
+    #   arrivalRate: 130
+    #   rampTo: 0
+    #   name: Ramp down to 0 users very quickly
+    # - pause: 10
+    #   name: Pause for 10 seconds
+    # - duration: 10
+    #   arrivalRate: 20
+    #   rampTo: 150
+    #   name: Spike to 150 users very quickly
+    # - duration: 10
+    #   arrivalRate: 150
+    #   rampTo: 0
+    #   name: Ramp down to 0 users very quickly
+    # - duration: 5m
+    #   arrivalRate: 5
+    #   maxVusers: 60
+    #   name: Sustained load for extended period
+  engines:
+    playwright:
+      launchOptions:
+        headless: true
+      browser: chromium
+  processor: ../tests/performance/login.perf.ts
+
+scenarios:
+  - engine: playwright
+    name: Login Flow
+    flowFunction: loginFlow

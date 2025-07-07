@@ -23,6 +23,5 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "prepare": "husky install"
-  },
-  "type": "module"
+  }
 }
