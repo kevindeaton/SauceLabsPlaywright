@@ -5,6 +5,8 @@ config:
       arrivalRate: 1
       maxVusers: 1
       name: Basic Performance Test
+
+    # Commented out more complex scenarios to save resources, can be enabled as needed
     # - duration: 60
     #   arrivalRate: 1
     #   rampTo: 100

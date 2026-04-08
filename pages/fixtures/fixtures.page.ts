@@ -29,6 +29,7 @@ export const test = base.extend<Fixtures>({
 
   inventoryPage: async ({ page }, use) => {
     const inventoryPage = new InventoryPage(page);
+    await inventoryPage.navigateTo();
     await use(inventoryPage);
   },
 

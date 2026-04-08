@@ -10,10 +10,6 @@ import {
 import { setAllureAnnotations } from '../../utils/allure.utils.ts';
 
 test.describe('Verify Inventory Details', () => {
-  test.beforeEach(async ({ inventoryPage }) => {
-    await inventoryPage.navigateTo();
-  });
-
   test('Inventory Items on the Inventory Page should contain all the correct information', async ({ inventoryPage }) => {
     await setAllureAnnotations('Inventory', 'Regression', allure.Severity.CRITICAL);
 
@@ -64,11 +60,7 @@ test.describe('Verify Inventory Details', () => {
   });
 });
 
-test.describe('Verify Sorting functionality', () => {
-  test.beforeEach(async ({ inventoryPage }) => {
-    await inventoryPage.navigateTo();
-  });
-
+test.describe('Verify Inventory Sorting functionality', () => {
   test('Inventory Items can be sorted by Name', async ({ inventoryPage }) => {
     await setAllureAnnotations('Inventory', 'Regression', allure.Severity.MINOR);
 
