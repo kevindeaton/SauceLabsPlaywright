@@ -6,6 +6,8 @@ summary.json
 config/
 package.json
 package-lock.json
+allure-*/
+*.config.*
 
 # IDE - VSCode
 .vscode/*

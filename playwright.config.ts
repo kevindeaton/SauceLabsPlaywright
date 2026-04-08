@@ -12,9 +12,23 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
-  reporter: 'html',
-
+  retries: 1,
+  reporter: [
+    ['html'],
+    ['allure-playwright', {
+      resultsDir: './allure-results',
+      detail: true,
+      suiteTitle: true, 
+      // categories: [ // TODO define categories later  
+      //   {
+      //     name: "foo",
+      //     messageRegex: "bar",
+      //     traceRegex: "baz",
+      //     matchedStatuses: [Status.FAILED, Status.BROKEN],
+      //   },
+      // ],
+    }],
+  ],
   use: {
     baseURL: process.env.URL,
     trace: 'retain-on-failure',

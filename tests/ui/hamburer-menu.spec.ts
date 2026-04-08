@@ -1,6 +1,10 @@
 import { test, expect } from '../../pages/fixtures/fixtures.page.ts';
+import * as allure from 'allure-js-commons';
+import { setAllureAnnotations } from '../../utils/allure.utils.ts';
 
 test('Hamburger Menu should expand and show all options when clicked', async ({ hamburgerMenu, inventoryPage }) => {
+  await setAllureAnnotations('Hamburger Menu', 'Regression', allure.Severity.NORMAL);
+
   await inventoryPage.navigateTo();
   await hamburgerMenu.openHamburgerMenu();
 
@@ -11,6 +15,8 @@ test('Hamburger Menu should expand and show all options when clicked', async ({ 
 });
 
 test('Session should be cleared when Logout is clicked', async ({ hamburgerMenu, inventoryPage, loginPage }) => {
+  await setAllureAnnotations('Hamburger Menu', 'Regression', allure.Severity.NORMAL);
+
   await inventoryPage.navigateTo();
   await hamburgerMenu.openHamburgerMenu();
 

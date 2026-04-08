@@ -9,6 +9,8 @@
     "@types/node": "^22.14.1",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.35.0",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.3.0",
     "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-playwright": "^2.2.0",
@@ -18,6 +20,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
+    "test-allure": "npx playwright test && npx allure generate ./allure-results --clean -o ./allure-report && npx allure open ./allure-report",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier . --check",
