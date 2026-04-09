@@ -12,21 +12,13 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 1,
+  retries: 0,
   reporter: [
     ['html'],
     ['allure-playwright', {
       resultsDir: './allure-results',
       detail: true,
-      suiteTitle: true, 
-      // categories: [ // TODO define categories later  
-      //   {
-      //     name: "foo",
-      //     messageRegex: "bar",
-      //     traceRegex: "baz",
-      //     matchedStatuses: [Status.FAILED, Status.BROKEN],
-      //   },
-      // ],
+      suiteTitle: true,
     }],
   ],
   use: {
