@@ -9,3 +9,4 @@ node_modules/
 /playwright/.cache/
 /allure-*/
 .vscode/
+google-storage-key.json

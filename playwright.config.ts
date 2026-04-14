@@ -27,17 +27,14 @@ export default defineConfig({
     testIdAttribute: 'data-test',
   },
 
+  // Global teardown hook - runs after all test projects complete
+  globalTeardown: require.resolve('./config/global.teardown.ts'),
+
   projects: [
     {
       name: 'Setup',
       testDir: './config',
       testMatch: '**/global.setup.ts',
-      teardown: 'Teardown',
-    },
-    {
-      name: 'Teardown',
-      testDir: './config',
-      testMatch: '**/global.teardown.ts',
     },
 
     {
