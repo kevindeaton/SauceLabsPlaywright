@@ -24,7 +24,7 @@ export async function uploadAllureReportToGCS(
             throw new Error(`Report directory not found: ${localReportPath}`);
         }
 
-        // First, delete existing folder in GCS (to overwrite)
+        // First, delete existing data in GCS (to overwrite)
         console.log('Deleting existing files in GCS, please wait...');
         await clearGCSFolder(bucket, gcsDestinationFolder);
 
@@ -99,8 +99,8 @@ async function clearGCSFolder(bucket: Bucket, folderPath: string): Promise<void>
 }
 
 /**
- * Its takes a really long time to upload the reports so this will
- * track upload progress every at 10% intervals and again atcompletion
+ * Its takes a really long time to upload the reports so this
+ * logs upload progress to the console at each 10% interval
  */
 function reportUploadProgress(uploadedCount: number, totalFiles: number, lastReportedPercentage: number): number {
     const currentPercentage = Math.floor((uploadedCount / totalFiles) * 100);
@@ -112,7 +112,7 @@ function reportUploadProgress(uploadedCount: number, totalFiles: number, lastRep
 }
 
 /**
- * Copies the /history folder from the previous test run to the /allure-reports
+ * Copies the '/history' folder from the previous test run to the '/allure-reports'
  * folder so that we have a historical record of test execution data
  */
 export async function copyAllureHistoricalData(): Promise<void> {
