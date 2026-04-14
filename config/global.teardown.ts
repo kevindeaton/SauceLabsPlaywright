@@ -1,7 +1,6 @@
-import { test } from '../pages/fixtures/fixtures.page.ts';
 import * as fs from 'fs';
 import * as path from 'path';
-import { uploadAllureReportToGCS } from '../utils/gcs.utils.ts';
+import { copyAllureHistoricalData, generateAllureReport, uploadAllureReportToGCS } from '../utils/gcs.utils.ts';
 
 /**
  * Clears the session authentication file to reset user state
@@ -22,6 +21,10 @@ export async function globalTeardown(): Promise<void> {
     // Clear session data
     await clearSessionData();
 
+    // Generates a new Allure Report with historical data
+    await copyAllureHistoricalData();
+    await generateAllureReport();
+
     // Upload Allure Report to GCS
     const bucketName = process.env.GCS_BUCKET_NAME || 'allure-reports-100423';
     const reportPath = path.resolve(__dirname, '../allure-report');
@@ -30,8 +33,6 @@ export async function globalTeardown(): Promise<void> {
     console.log('Allure Report uploaded successfully!');
   } catch (error) {
     console.error('Error with uploading Allure Report:', error);
-    // Set to true if you want test suite to fail when cleanup fails
-    // Set to false if you want tests to pass regardless of cleanup status
   }
 }
 
