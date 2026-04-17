@@ -19,9 +19,8 @@ FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 WORKDIR /workspace
 
 # Only copy over the node_modules and code from the builder stage
-COPY --from=builder /workspace /workspace
-
-RUN cp -ar /workspace/node_modules /workspace_backup
+COPY --from=builder /workspace/node_modules ./node_modules
+COPY --from=builder /workspace . ./
 
 # Install browsers in the final image
 RUN npx playwright install --with-deps chromium
