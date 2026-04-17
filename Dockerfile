@@ -21,7 +21,7 @@ WORKDIR /workspace
 # Only copy over the node_modules and code from the builder stage
 COPY --from=builder /workspace /workspace
 
-RUN cp -r /workspace/node_modules /workspace_backup
+RUN cp -ar /workspace/node_modules /workspace_backup
 
 # Install browsers in the final image
 RUN npx playwright install --with-deps chromium
