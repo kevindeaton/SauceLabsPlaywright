@@ -28,6 +28,8 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docker-build": "docker build -t us-central1-docker.pkg.dev/semiotic-primer-493213-a5/playwright-repo/playwright-runner .",
+    "docker-push": "docker push us-central1-docker.pkg.dev/semiotic-primer-493213-a5/playwright-repo/playwright-runner"
   }
 }
