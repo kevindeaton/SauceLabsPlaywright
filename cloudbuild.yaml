@@ -31,7 +31,6 @@ steps:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
-      - 'GEMINI_API_KEY=$$GEMINI_API_KEY'
     secretEnv: ['GEMINI_API_KEY']
     waitFor: ['build-image']
 
