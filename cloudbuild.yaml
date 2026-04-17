@@ -25,14 +25,14 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        export GEMINI_API_KEY=${_GEMINI_API_KEY}
+      - |   
         npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
-
+      - 'GEMINI_API_KEY=$$GEMINI_API_KEY'
+    secretEnv: ['GEMINI_API_KEY']
     waitFor: ['build-image']
 
   # STEP 4: Save the updated cache to GCS
@@ -52,3 +52,7 @@ substitutions:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+secrets:
+  - versionName: projects/$PROJECT_ID/secrets/gemini-api-key/versions/latest
+    env: 'GEMINI_API_KEY'
