@@ -22,15 +22,16 @@ steps:
   # STEP 3: Execute the Tests
   - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
     id: 'run-tests'
+    entrypoint: 'bash' # This tells GCP WHAT to run
+    args: 
+      - '-c'           # This is the first argument to bash
+      - |              # This says "everything below is the command string"
+        cp -r /workspace_backup/node_modules /workspace/node_modules 2>/dev/null || npm ci
+        npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
-    args:
-      - '-c'
-      - | 
-        cp -r /workspace_backup/node_modules /workspace/node_modules 2>/dev/null || npm ci
-        npx playwright test
 
   # STEP 4: Save the updated cache to GCS
   - name: 'gcr.io/cloud-builders/gsutil'
