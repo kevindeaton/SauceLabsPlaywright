@@ -27,8 +27,9 @@ steps:
       - '-c'
       - |
         cp -ar /workspace_backup/node_modules /workspace/
+        ls -d /workspace/node_modules/@playwright/test || echo "FAILED TO RESTORE MODULES"
         export GEMINI_API_KEY=${_GEMINI_API_KEY}
-        npx playwright test
+        ./node_modules/.bin/playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
