@@ -1,55 +1,54 @@
 steps:
   # STEP 1: Restore the npm cache from GCS
-  - name: "gcr.io/cloud-builders/gsutil"
-    id: "restore-cache"
-    entrypoint: "bash"
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'restore-cache'
+    entrypoint: 'bash'
     args:
-      - "-c"
+      - '-c'
       - |
         gsutil cp gs://${_CACHE_BUCKET}/node_modules_cache.tar.gz node_modules_cache.tar.gz || echo "No cache found"
         if [ -f node_modules_cache.tar.gz ]; then tar -xzf node_modules_cache.tar.gz; fi
 
   # STEP 2: Build the Playwright Image
-  - name: "gcr.io/cloud-builders/docker"
-    id: "build-image"
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
     args:
-      - "build"
-      - "-t"
+      - 'build'
+      - '-t'
       - "us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runn\
         er"
-      - "."
-    waitFor: [ "restore-cache" ]
+      - '.'
+    waitFor: ['restore-cache']
 
   # STEP 3: Execute the Tests
-  - name: "us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner"
-    id: "run-tests"
-    entrypoint: "bash"
+  - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
+    id: 'run-tests'
+    entrypoint: 'bash'
     args:
-      - "-c"
+      - '-c'
       - |
-        export GEMINI_API_KEY=$$GEMINI_API_KEY 
         cp -ar /workspace_backup/node_modules /workspace/
         npx playwright test
-    secretEnv: [ "GEMINI_API_KEY" ]
     env:
-      - "UPLOAD_REPORT=true"
-      - "PROJECT_ID=$PROJECT_ID"
-      - "REPORTS_BUCKET=${_REPORTS_BUCKET}"
+      - 'UPLOAD_REPORT=true'
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
+      - 'GEMINI_API_KEY=${_GEMINI_API_KEY}'
 
   # STEP 4: Save the updated cache to GCS
-  - name: "gcr.io/cloud-builders/gsutil"
-    id: "save-cache"
-    entrypoint: "bash"
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'save-cache'
+    entrypoint: 'bash'
     args:
-      - "-c"
+      - '-c'
       - |
         tar -czf node_modules_cache.tar.gz node_modules/
         gsutil cp node_modules_cache.tar.gz gs://${_CACHE_BUCKET}/node_modules_cache.tar.gz
-    waitFor: [ "run-tests" ]
+    waitFor: ['run-tests']
 
 substitutions:
-  _CACHE_BUCKET: "playwright-cache-10042023"
-  _REPORTS_BUCKET: "allure-reports-100423"
+  _CACHE_BUCKET: 'playwright-cache-10042023'
+  _REPORTS_BUCKET: 'allure-reports-100423'
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -57,4 +56,4 @@ options:
 availableSecrets:
   secretManager:
     - versionName: projects/$PROJECT_ID/secrets/GEMINI_API_KEY/versions/latest
-      env: "GEMINI_API_KEY"
+      env: 'GEMINI_API_KEY'
