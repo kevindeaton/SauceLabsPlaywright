@@ -4,16 +4,16 @@ FROM mcr.microsoft.com/playwright:v1.52.0-jammy AS builder
 
 WORKDIR /app
 
-# Copy dependency files first (for better caching)
+# Copy dependency files first for caching
 COPY package*.json ./
 
-# Install dependencies using 'npm ci' (clean install for CI)
+# Install dependencies
 RUN npm ci
 
-# Copy the rest of your automation code
+# Copy the rest of the project
 COPY . .
 
-# STAGE 2: The Runner (Execution environment)
+# STAGE 2: The Runner
 FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 
 WORKDIR /app
@@ -21,9 +21,8 @@ WORKDIR /app
 # Only copy over the node_modules and code from the builder stage
 COPY --from=builder /app /app
 
-# Set environment variables
+# Environment variables
 ENV CI=1
 ENV UPLOAD_REPORT=false 
 
-# This command is just a placeholder; Cloud Build will override this
 CMD ["npx", "playwright", "test"]

@@ -1,0 +1,49 @@
+steps:
+  # STEP 1: Restore the npm cache from GCS
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'restore-cache'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gsutil cp gs://${_CACHE_BUCKET}/node_modules_cache.tar.gz node_modules_cache.tar.gz || echo "No cache found"
+        if [ -f node_modules_cache.tar.gz ]; then tar -xzf node_modules_cache.tar.gz; fi
+
+  # STEP 2: Build the Playwright Image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
+      - '.'
+    waitFor: ['restore-cache']
+
+  # STEP 3: Execute the Tests
+  - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
+    id: 'run-tests'
+    env:
+      - 'UPLOAD_REPORT=true'
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
+    entrypoint: 'npx'
+    args: ['playwright', 'test']
+
+  # STEP 4: Save the updated cache to GCS
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'save-cache'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        tar -czf node_modules_cache.tar.gz node_modules/
+        gsutil cp node_modules_cache.tar.gz gs://${_CACHE_BUCKET}/node_modules_cache.tar.gz
+    waitFor: ['run-tests']
+
+substitutions:
+  _CACHE_BUCKET: 'playwright-cache-10042023'
+  _REPORTS_BUCKET: 'allure-reports-100423'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
