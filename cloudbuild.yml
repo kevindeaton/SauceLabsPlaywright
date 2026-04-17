@@ -45,5 +45,4 @@ substitutions:
   _REPORTS_BUCKET: 'allure-reports-100423'
 
 options:
-  machineType: 'E2_HIGHCPU_8'
   logging: CLOUD_LOGGING_ONLY
