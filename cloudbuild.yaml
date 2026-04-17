@@ -25,7 +25,7 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - |   
+      - |
         npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
