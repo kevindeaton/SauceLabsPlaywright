@@ -53,6 +53,7 @@ substitutions:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-secrets:
-  - versionName: projects/$PROJECT_ID/secrets/gemini-api-key/versions/latest
-    env: 'GEMINI_API_KEY'
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/gemini-api-key/versions/latest
+      env: GEMINI_API_KEY
