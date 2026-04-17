@@ -8,6 +8,8 @@ package.json
 package-lock.json
 allure-*/
 *.config.*
+Dockerfile
+.dockerignore
 
 # IDE - VSCode
 .vscode/*
