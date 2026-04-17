@@ -27,13 +27,14 @@ steps:
       - '-c'
       - |
         cp -ar /workspace_backup/node_modules /workspace/
+        npm ci
         export GEMINI_API_KEY=${_GEMINI_API_KEY}
         npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
-      
+
     waitFor: ['build-image']
 
   # STEP 4: Save the updated cache to GCS
