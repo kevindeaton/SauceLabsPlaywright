@@ -2,7 +2,7 @@
 # Use the official Microsoft Playwright image as our foundation
 FROM mcr.microsoft.com/playwright:v1.52.0-jammy AS builder
 
-WORKDIR /app
+WORKDIR /workspace
 
 # Copy dependency files first for caching
 COPY package*.json ./
@@ -16,13 +16,18 @@ COPY . .
 # STAGE 2: The Runner
 FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 
-WORKDIR /app
+WORKDIR /workspace
 
 # Only copy over the node_modules and code from the builder stage
-COPY --from=builder /app /app
+COPY --from=builder /workspace /workspace
+
+# Install browsers in the final image
+RUN npx playwright install --with-deps chromium
+
+
 
 # Environment variables
 ENV CI=1
-ENV UPLOAD_REPORT=false 
+ENV UPLOAD_REPORT=false
 
 CMD ["npx", "playwright", "test"]
