@@ -14,7 +14,7 @@ steps:
     id: 'build-image'
     args:
       - 'build'
-      - 'no-cache'
+      - '--no-cache'
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
       - '.'
