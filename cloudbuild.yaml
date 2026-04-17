@@ -15,8 +15,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - "us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runn\
-        er"
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/playwright-repo/playwright-runner'
       - '.'
     waitFor: ['restore-cache']
 
@@ -28,12 +27,12 @@ steps:
       - '-c'
       - |
         cp -ar /workspace_backup/node_modules /workspace/
+        export GEMINI_API_KEY=${_GEMINI_API_KEY}
         npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
-      - 'GEMINI_API_KEY=${_GEMINI_API_KEY}'
 
   # STEP 4: Save the updated cache to GCS
   - name: 'gcr.io/cloud-builders/gsutil'
@@ -55,5 +54,5 @@ options:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/GEMINI_API_KEY/versions/latest
-      env: 'GEMINI_API_KEY'
+  - versionName: projects/$PROJECT_ID/secrets/GEMINI_API_KEY/versions/latest
+    env: 'GEMINI_API_KEY'
