@@ -16,7 +16,7 @@ COPY . .
 # STAGE 2: The Runner
 FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 
-WORKDIR /workspace
+WORKDIR /
 
 # Only copy over the node_modules and code from the builder stage
 COPY --from=builder /workspace /workspace
@@ -28,6 +28,7 @@ RUN npx playwright install --with-deps chromium
 
 
 # Environment variables
+WORKDIR /workspace
 ENV CI=1
 ENV UPLOAD_REPORT=false
 
