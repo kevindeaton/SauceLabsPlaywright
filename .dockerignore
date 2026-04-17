@@ -1,0 +1,9 @@
+node_modules
+allure-report
+allure-results
+.git
+google-storage-key.json
+.env
+playwright-report
+test-results
+*.md
