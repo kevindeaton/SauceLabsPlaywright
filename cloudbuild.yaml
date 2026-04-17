@@ -27,13 +27,14 @@ steps:
       - '-c'
       - |
         cp -ar /workspace_backup/node_modules /workspace/
-        ls -d /workspace/node_modules/@playwright/test || echo "FAILED TO RESTORE MODULES"
         export GEMINI_API_KEY=${_GEMINI_API_KEY}
-        ./node_modules/.bin/playwright test
+        npx playwright test
     env:
       - 'UPLOAD_REPORT=true'
       - 'PROJECT_ID=$PROJECT_ID'
       - 'REPORTS_BUCKET=${_REPORTS_BUCKET}'
+      
+    waitFor: ['build-image']
 
   # STEP 4: Save the updated cache to GCS
   - name: 'gcr.io/cloud-builders/gsutil'
